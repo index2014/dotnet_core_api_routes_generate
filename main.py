@@ -30,7 +30,7 @@ def get_routes(path, output, Unauhtorized):
             output_file.write(API_result+'\n')
 
 def main():
-    directory = "./Modules/HRMS/"
+    directory = "./"
     output_directory = './API_Summary.txt'
     Unauhtorized = './Unauthorized.txt'
     find_cs_files(directory=directory, output=output_directory, Unauthorized=Unauhtorized)
