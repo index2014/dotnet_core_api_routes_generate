@@ -1,0 +1,2 @@
+# dotnet_api_routes_generate
+代码审计工具，自动输出dotnet core项目中的API路由
