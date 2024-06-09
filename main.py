@@ -5,6 +5,7 @@ def find_cs_files(directory, output, Unauthorized):
     for root, dirs, files in os.walk(directory):
         for file in files:
             if file.endswith(".cs"):
+                print(os.path.join(root, file))
                 get_routes(os.path.join(root, file), output=output, Unauhtorized=Unauthorized)
 
 def get_routes(path, output, Unauhtorized):
@@ -20,7 +21,8 @@ def get_routes(path, output, Unauhtorized):
     for route in routes:
         http_method = route[0]
         route_path = route[1].replace('[controller]', controller_name).replace('[action]', 'ActionName')
-        API_result = (f"{http_method[4:].upper()} /api/{controller_name[:10]}/{route_path}")
+        API_result = (f"{http_method[4:].upper()} /api/{controller_name}/{route_path}")
+        API_result = re.sub(r'Controller', '', API_result)
         if not authorize_present:
             with open(Unauhtorized, 'a') as Unauhtorized_file:
                 Unauhtorized_file.write(f"{API_result}\n")
@@ -28,7 +30,7 @@ def get_routes(path, output, Unauhtorized):
             output_file.write(API_result+'\n')
 
 def main():
-    directory = "./"
+    directory = "./Modules/HRMS/"
     output_directory = './API_Summary.txt'
     Unauhtorized = './Unauthorized.txt'
     find_cs_files(directory=directory, output=output_directory, Unauthorized=Unauhtorized)
